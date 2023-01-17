@@ -6,13 +6,14 @@ import Folder from './components/Folder';
 import loadImage, { LoadImageResult } from 'blueimp-load-image';
 import { API_KEY, API_URL, BASE64_IMAGE_HEADER } from './Constants';
 
-type ImageFolder = {
-  name: string;
-  images: string[];
-};
+interface ImageFolder {
+  name: string,
+  images: Array<string>
+}
+
 function App() {
-  const [latestResult, setLatestResult] = useState<string | null>(null)
-  let uploadedImages: Array<ImageFolder> = [{name: "Untitled Folder", images: []}];
+  const [latestResult, setLatestResult] = useState<string | null>(null);
+  const [uploadedImages, setUploadedImages] = useState<Array<ImageFolder>>([{name: "Untitled Folder", images: [] as string[]}]);
   
   let uploadImageToServer = (file: File) => {
     loadImage(
@@ -49,7 +50,10 @@ function App() {
         setLatestResult(base64Result)
         if (latestResult) {
           // we upload to "Untitled Folder" right now, which is always index 0.
-          uploadedImages[0].images.push(base64Result);
+          const newImages = [...uploadedImages];
+          newImages[0].images.push(base64Result);
+          console.log("newImages", newImages);
+          setUploadedImages(newImages);
         }
       })
       
@@ -70,20 +74,19 @@ function App() {
       e.preventDefault();
       if(e.target) {
         console.log(e.target);
-        //uploadedImages.push({name: e.target.value, images: []});
+        
       }
     }
     
     return (
       <div className="App">
         <header className="App-header">
-          {!latestResult && <AddButton onImageAdd={onImageAdd}/>}
+          <AddButton onImageAdd={onImageAdd}/>
+          <h2>Latest Upload</h2>
           {latestResult && <img src={latestResult} width={300} alt="result from the API"/>}
           <AddFolder onFolderAdd={onFolderAdd} />
           <ul className="folder-list">
             {uploadedImages.map((folder, index) => {
-              console.log(uploadedImages);
-              /* need to figure out why images isn't updating, probably need to switch to react state instead of variable */
               return <Folder name={folder.name} images={folder.images} key={index} />
             })}
           </ul>

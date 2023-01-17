@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import start from "../startButton.svg";
 
 export default function AddFolder ({
     onFolderAdd,

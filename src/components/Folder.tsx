@@ -12,7 +12,7 @@ export default function Folder ({
     <ul className="folder-images">
       {images}
       {images.map((image, index) => {
-        return <li className="folder-image"><img src={image} key={index} width={300} alt="result from the API"/></li>;
+        return <li className="folder-list-item" key={index}><img className="folder-image" src={image} alt="result from the API"/></li>;
       })}
     </ul>
   </li>
