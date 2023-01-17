@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info: 
+  version: 1.0.0
+  title: PhotoRoom Folder API
+  description: API to manage user folder and image organization across multiple devices
+
+components:
+  # todo: securityscheme for user authentication
+  schemas:
+    ImageFolder:
+      type: object
+      properties:
+        id:
+          type: integer
+        name: 
+          type: string
+        images: 
+          type: array
+    
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+        folderId:
+          type: integer
+        data:
+          type: string
+
+    responses:
+    400Error:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object 
+            properties:
+              message:
+                type: string
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object 
+            properties:
+              message:
+                type: string
+
+paths:
+  /folders:
+    get:
+      description: Returns a list of user's folders
+      responses:
+        '200':
+          description: Successfully returned a list of folders
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/ImageFolder'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+    post:
+      description: Lets user create a new folder
+      requestBody:
+        required: true
+        content:
+          applicaton/json:
+            schema:
+              $ref: '#/components/schemas/ImageFolder'
+      responses:
+        '200':
+          description: Successfully created a new folder
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+  /folders/{id}:
+    get:
+      description: Returns metadata for folder
+      responses:
+        '200':
+          description: Successfully returned images inside of folder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageFolder'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+    delete:
+      description: Deletes folder, moves images inside to "Untiled Folder"
+      responses:
+        '200':
+          description: Successfully deleted folder
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+  /folders/{id}/images:
+    get:
+      description: Returns images stored inside of folder
+      responses:
+        '200':
+          description: Successfully returned images inside of folder
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Image'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+  /images:
+    get:
+      description: Returns list of all images in user's account
+      responses:
+        '200':
+          description: Successfully returned all user images
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Image'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+    post:
+      description: Adds a new image to user's account and calls PhotoRoom api to remove background
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Image'
+      responses:
+        '200':
+          description: Successfully created image inside of specified folder
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+  /images/{id}:
+    get:
+      description: Returns a specific image by id
+      responses:
+        '200':
+          description: Successfully returned all user images
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Image'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+    delete:
+      description: Removes an image from user's account
+      responses: 
+        '200':
+          description: Successfully deleted image
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
+    post:
+      description: Updates folderId for image
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                folderId:
+                  type: integer
+      responses: 
+        '200':
+          description: Successfully moved image to given folderId
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401': 
+          $ref: '#/components/responses/401Error'
