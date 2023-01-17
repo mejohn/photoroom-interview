@@ -1,0 +1,7 @@
+I would implement this api using FastAPI with PostgreSQL as its backing database. Django/Django-Rest-Framework is also an option if the goal is to support as few frameworks as possible within the team.
+
+FastAPI has advantages with both developing speed (there's less boilerplate code) and scalability compared to DRF. I lean towards Django for full-stack applications but feel that it is too heavy of a tool for a simple API backend. 
+
+PostgreSQL is my database of choice for production instances because this data has a clear relational structure and Postgres handles base64 image blobs well. Postgres also scales well for read-instances using replicas and 
+
+To scale, I would handle the FastAPI application using gunicorn to manage uvicorn workers, controlled by kubernetes, docker swarm, or docker-compose (I have experience with the last two but am interested in learning the first) and NGINX as a reverse-proxy and load balancer.
