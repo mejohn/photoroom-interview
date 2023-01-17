@@ -33,3 +33,30 @@ label.add-button-label {
   right: 0;
   bottom: 20px;
 }
+
+/* Add folder */
+.add-folder-label {
+  display: flex;
+  align-items: center;
+}
+.add-folder-image {
+  width: 20px;
+}
+
+/* Display folders */
+.folder-list {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.folder-title {
+  margin-bottom: 5px;
+}
+
+.folder-images {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}

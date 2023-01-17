@@ -1,11 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import AddButton from './components/AddButton';
+import AddFolder from './components/AddFolder';
+import Folder from './components/Folder';
 import loadImage, { LoadImageResult } from 'blueimp-load-image';
 import { API_KEY, API_URL, BASE64_IMAGE_HEADER } from './Constants';
 
+type ImageFolder = {
+  name: string;
+  images: string[];
+};
 function App() {
-  const [result, setResult] = useState<string | null>(null)
+  const [latestResult, setLatestResult] = useState<string | null>(null)
+  let uploadedImages: Array<ImageFolder> = [{name: "Untitled Folder", images: []}];
   
   let uploadImageToServer = (file: File) => {
     loadImage(
@@ -37,9 +44,14 @@ function App() {
           throw new Error("Bad response from server");
         }
 
-        const result = await response.json();
-        const base64Result = BASE64_IMAGE_HEADER + result.result_b64
-        setResult(base64Result)
+        const latestResult = await response.json();
+        const base64Result = BASE64_IMAGE_HEADER + latestResult.result_b64
+        setLatestResult(base64Result)
+        if (latestResult) {
+          // we upload to "Untitled Folder" right now, which is always index 0.
+          uploadedImages[0].images.push(base64Result);
+        }
+        console.log(uploadedImages);
       })
       
       .catch(error => {
@@ -54,12 +66,26 @@ function App() {
         console.error("No file was picked")
       }
     }
+
+    let onFolderAdd = (e: ChangeEvent<HTMLInputElement>) => {
+      if(e.target.value) {
+        console.log(e.target.value);
+        uploadedImages.push({name: e.target.value, images: []});
+      }
+    }
     
     return (
       <div className="App">
         <header className="App-header">
-          {!result && <AddButton onImageAdd={onImageAdd}/>}
-          {result && <img src={result} width={300} alt="result from the API"/>}
+          {!latestResult && <AddButton onImageAdd={onImageAdd}/>}
+          {latestResult && <img src={latestResult} width={300} alt="result from the API"/>}
+          <AddFolder onFolderAdd={onFolderAdd} />
+          <ul className="folder-list">
+            {uploadedImages.map((folder, index) => {
+              console.log(folder.images);
+              return <Folder name={folder.name} images={folder.images} key={index} />
+            })}
+          </ul>
         </header>
       </div>
       );
