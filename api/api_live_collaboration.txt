@@ -1,0 +1,5 @@
+To enable live collaboration between users, folders would need to keep track of more metadata, including whether or not a folder is shared to a group or belongs to a single user.
+
+I would add new routes to allow users to create and manage groups that they are in (perhaps an administrator role to add or remove members to a group) and which folders that they have created are shared with each group. 
+
+We would need to address whether folders could be shared with more than one group at a time and whether there are file-level permissions for images within folders. 
