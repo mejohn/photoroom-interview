@@ -80,17 +80,21 @@ function App() {
     
     return (
       <div className="App">
-        <header className="App-header">
-          <AddButton onImageAdd={onImageAdd}/>
-          <h2>Latest Upload</h2>
-          {latestResult && <img src={latestResult} width={300} alt="result from the API"/>}
+        <header className="header">
+            <AddButton onImageAdd={onImageAdd}/>
+            {!latestResult && <h1 className="header-no-images">No Uploaded Images. Give it a try!</h1>}
+            {latestResult && <h1 className="header-title">Latest Upload</h1>}
+            {latestResult && <img className="header-image" src={latestResult} width={300} alt="result from the API"/>}
+        </header>
+        {latestResult && <section className="folders">
           <AddFolder onFolderAdd={onFolderAdd} />
           <ul className="folder-list">
             {uploadedImages.map((folder, index) => {
               return <Folder name={folder.name} images={folder.images} key={index} />
             })}
           </ul>
-        </header>
+        </section>
+        }
       </div>
       );
     }

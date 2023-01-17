@@ -1,6 +1,32 @@
+/* header (upload button & latest upload image) */
+.header {
+  display: grid;
+  width: 100%;
+  grid-template-areas: "button title"
+                       "button image"
+                       "no-image .";
+  grid-template-columns: auto minmax(0, 50%);
+  place-items: center;
+}
+
+.header-no-images {
+  grid-area: no-image;
+}
+
+.header-title {
+  grid-area: title;
+}
+
+.header-image {
+  grid-area: image;
+  width: 300px;
+  border: 3px dashed blue;
+}
+
 /* Add button */
 
 .add-button-wrapper {
+  grid-area: button;
   display: flex;
   align-content: center;
   justify-content: center;
@@ -64,5 +90,5 @@ label.add-button-label {
 
 .folder-image {
   width: 300px;
-  border: 1px dotted blue;
+  border: 3px dashed blue;
 }
