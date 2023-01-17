@@ -1,3 +1,5 @@
+/* button color: ff4758. button gradient: 220084 */
+
 /* header (upload button & latest upload image) */
 .header {
   display: grid;
@@ -7,6 +9,10 @@
                        "no-image .";
   grid-template-columns: auto minmax(0, 50%);
   place-items: center;
+  min-height: 50vh;
+  max-height: 100vh;
+  background: linear-gradient(180deg, #ff7d85 0%, #ffffff 100%);
+
 }
 
 .header-no-images {
@@ -20,7 +26,7 @@
 .header-image {
   grid-area: image;
   width: 300px;
-  border: 3px dashed blue;
+  border: 3px dashed #220084;
 }
 
 /* Add button */
@@ -69,6 +75,9 @@ label.add-button-label {
 }
 
 /* Display folders */
+.folders {
+  padding: 0 80px;
+}
 .folder-list {
   padding-left: 0;
   margin-bottom: 0;
@@ -90,5 +99,5 @@ label.add-button-label {
 
 .folder-image {
   width: 300px;
-  border: 3px dashed blue;
+  border: 3px dashed #220084;
 }
