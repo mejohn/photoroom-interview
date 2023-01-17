@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import './App.css';
 import AddButton from './components/AddButton';
 import AddFolder from './components/AddFolder';
@@ -51,7 +51,6 @@ function App() {
           // we upload to "Untitled Folder" right now, which is always index 0.
           uploadedImages[0].images.push(base64Result);
         }
-        console.log(uploadedImages);
       })
       
       .catch(error => {
@@ -67,10 +66,11 @@ function App() {
       }
     }
 
-    let onFolderAdd = (e: ChangeEvent<HTMLInputElement>) => {
-      if(e.target.value) {
-        console.log(e.target.value);
-        uploadedImages.push({name: e.target.value, images: []});
+    let onFolderAdd = (e: FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      if(e.target) {
+        console.log(e.target);
+        //uploadedImages.push({name: e.target.value, images: []});
       }
     }
     
@@ -82,7 +82,8 @@ function App() {
           <AddFolder onFolderAdd={onFolderAdd} />
           <ul className="folder-list">
             {uploadedImages.map((folder, index) => {
-              console.log(folder.images);
+              console.log(uploadedImages);
+              /* need to figure out why images isn't updating, probably need to switch to react state instead of variable */
               return <Folder name={folder.name} images={folder.images} key={index} />
             })}
           </ul>

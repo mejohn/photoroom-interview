@@ -9,7 +9,7 @@ export default function AddFolder ({
 
    return (
 
-  <div className="add-folder-wrapper">
+  <form className="add-folder-wrapper">
     <label className="add-folder-label"
            htmlFor="customFolderAdd">
             Add Folder
@@ -21,9 +21,9 @@ export default function AddFolder ({
              maxLength={255}
              required={true}
              />
-      <img src={start} alt="" className="add-folder-image"/>
+      <button className="add-folder-button" type="submit">Add Folder</button>
     </label>
-  </div>
+  </form>
 
 
 )}
