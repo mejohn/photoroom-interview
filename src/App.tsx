@@ -82,12 +82,19 @@ function App() {
 
     let onFolderAdd = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if(e.currentTarget.elements.namedItem("newFolderName")) {
+      if(e.currentTarget) {
         const input = getFormInput(e.currentTarget, "newFolderName");
         const newImages = [...uploadedImages];
         newImages.push({name: input.value, images: []});
         setUploadedImages(newImages);
       }
+    }
+
+    let onFolderRename = (index: number, newName: string) => {
+      const newImages = [...uploadedImages];
+      console.log(index);
+      newImages[index].name = newName;
+      setUploadedImages(newImages);
     }
     
     return (
@@ -102,7 +109,7 @@ function App() {
           <AddFolder onFolderAdd={onFolderAdd} />
           <ul className="folder-list">
             {uploadedImages.map((folder, index) => {
-              return <Folder name={folder.name} images={folder.images} key={index} />
+              return <Folder name={folder.name} images={folder.images} key={index} index={index} onFolderRename={onFolderRename} />
             })}
           </ul>
         </section>

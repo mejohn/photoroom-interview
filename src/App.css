@@ -141,3 +141,32 @@ label.add-button-label {
   width: 300px;
   border: 3px dashed #220084;
 }
+
+.folder-rename-button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 25px;
+  width: 25px;
+  border: none;
+  opacity: 0.5;
+}
+
+.folder-rename-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0.83em 0;
+}
+
+.folder-rename-input {
+  font-size: 1.5em;
+  font-weight: bold;
+  height: 30px;
+  border: 1px solid #afafaf;
+  padding: 0 15px;
+  box-sizing: border-box;
+  border-radius: 15px;
+
+}
