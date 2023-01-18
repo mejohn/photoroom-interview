@@ -52,7 +52,6 @@ function App() {
           // we upload to "Untitled Folder" right now, which is always index 0.
           const newImages = [...uploadedImages];
           newImages[0].images.push(base64Result);
-          console.log("newImages", newImages);
           setUploadedImages(newImages);
         }
       })
@@ -70,11 +69,24 @@ function App() {
       }
     }
 
-    let onFolderAdd = (e: FormEvent<HTMLInputElement>) => {
+    /* figuring out how to get value from onSubmit instead of onChange without a controlled element
+    https://stackoverflow.com/questions/71598967/how-to-get-the-value-of-input-tag-onsubmit-without-using-onchange-in-react-js-ty 
+    */
+    let getFormInput = (form: HTMLFormElement, name: string): HTMLInputElement => {
+      const input = form.elements.namedItem(name);
+      if (!input || !("value" in input) || input instanceof RadioNodeList) {
+        throw new Error(`Form input "{$name} was not found or doesn't have a value`);
+      }
+      return input;
+    }
+
+    let onFolderAdd = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if(e.target) {
-        console.log(e.target);
-        
+      if(e.currentTarget.elements.namedItem("newFolderName")) {
+        const input = getFormInput(e.currentTarget, "newFolderName");
+        const newImages = [...uploadedImages];
+        newImages.push({name: input.value, images: []});
+        setUploadedImages(newImages);
       }
     }
     

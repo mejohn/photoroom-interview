@@ -7,12 +7,13 @@
   grid-template-areas: "button title"
                        "button image"
                        "no-image .";
-  grid-template-columns: auto minmax(0, 50%);
+  grid-template-columns: auto minmax(0, max-content);
   place-items: center;
   min-height: 50vh;
   max-height: 100vh;
   background: linear-gradient(180deg, #ff7d85 0%, #ffffff 100%);
-
+  padding: 0 80px;
+  box-sizing: border-box;
 }
 
 .header-no-images {
@@ -69,14 +70,53 @@ label.add-button-label {
 .add-folder-label {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
-.add-folder-image {
-  width: 20px;
+.add-folder-button {
+  color: white;
+  background-color: #3400cb;
+  border: 1px solid #3400cb;
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.add-folder-input {
+  border-radius: 15px;
+  background-color: white;
+  color: black;
+  height: 30px;
+  width: 200px;
+  border: 1px solid #afafaf;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.save-folder-button {
+  color: white;
+  background-color: #32805b;
+  border: 1px solid #32805b;
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.cancel-folder-button {
+  color: #ff4758;
+  background-color: white;
+  border: 1px solid #ff4758;
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 15px;
+  box-sizing: border-box;
 }
 
 /* Display folders */
 .folders {
   padding: 0 80px;
+  box-sizing: border-box;
 }
 .folder-list {
   padding-left: 0;
