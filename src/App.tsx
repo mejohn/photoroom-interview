@@ -6,10 +6,7 @@ import Folder from './components/Folder';
 import loadImage, { LoadImageResult } from 'blueimp-load-image';
 import { API_KEY, API_URL, BASE64_IMAGE_HEADER } from './Constants';
 
-interface ImageFolder {
-  name: string,
-  images: Array<string>
-}
+import { ImageFolder } from "./Types";
 
 function App() {
   const [latestResult, setLatestResult] = useState<string | null>(null);
@@ -92,8 +89,18 @@ function App() {
 
     let onFolderRename = (index: number, newName: string) => {
       const newImages = [...uploadedImages];
-      console.log(index);
       newImages[index].name = newName;
+      setUploadedImages(newImages);
+    }
+
+    let onImageMove = (image: string, newFolderIndex: number, oldFolderIndex: number) => {
+      const newImages = [...uploadedImages];
+      // add image to new folder
+      newImages[newFolderIndex].images.push(image);
+      // remove image from old folder
+      newImages[oldFolderIndex].images = newImages[oldFolderIndex].images.filter(i => {
+        return i !== image
+      });
       setUploadedImages(newImages);
     }
     
@@ -109,7 +116,7 @@ function App() {
           <AddFolder onFolderAdd={onFolderAdd} />
           <ul className="folder-list">
             {uploadedImages.map((folder, index) => {
-              return <Folder name={folder.name} images={folder.images} key={index} index={index} onFolderRename={onFolderRename} />
+              return <Folder name={folder.name} images={folder.images} key={index} folderIndex={index} onFolderRename={onFolderRename} uploadedImages={uploadedImages} onImageMove={onImageMove} />
             })}
           </ul>
         </section>

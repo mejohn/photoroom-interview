@@ -124,8 +124,17 @@ label.add-button-label {
   list-style: none;
 }
 
+.folder-list-item {
+  position: relative;
+}
+
 .folder-title {
   margin-bottom: 5px;
+}
+
+.folder-name {
+  display: flex;
+  align-items: center;
 }
 
 .folder-images {
@@ -147,10 +156,9 @@ label.add-button-label {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 25px;
-  width: 25px;
+  font-size: 1.2em;
   border: none;
-  opacity: 0.5;
+  transform: scaleX(-1);  
 }
 
 .folder-rename-form {
@@ -169,4 +177,48 @@ label.add-button-label {
   box-sizing: border-box;
   border-radius: 15px;
 
+}
+
+.image-edit-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  font-size: 35px;
+  color: #220084;
+  border: none;
+  opacity: 0.5;
+  transform: scaleX(-1);
+}
+
+.image-move-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-move-select {
+  width: calc(100% - 30px);
+  border: 1px solid #afafaf;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  height: 30px;
+  font-size: 22px;
+  background-color: white;
+}
+
+.image-move-cancel {
+  color: #ff4758;
+  background-color: white;
+  border: 1px solid #ff4758;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  box-sizing: border-box;
+  height: 30px;
+  width: 30px;
+  font-size: 22px;
 }

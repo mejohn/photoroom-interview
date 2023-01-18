@@ -1,13 +1,16 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
-import editPencil from "../edit-pencil.png";
+import Image from "./Image";
+import { ImageFolder } from "../Types";
 
 export default function Folder ({
-  name, images, index, onFolderRename
+  name, images, folderIndex, onFolderRename, uploadedImages, onImageMove
 }: {
   name: string,
   images: string[],
-  index: number,
-  onFolderRename: (key: number, newName: string) => void;
+  folderIndex: number,
+  onFolderRename: (key: number, newName: string) => void,
+  uploadedImages: Array<ImageFolder>,
+  onImageMove: (image: string, newFolderIndex: number, oldFolderIndex: number) => void,
 }): JSX.Element {
 
   const [showInput, setShowInput] = useState(false);
@@ -23,7 +26,7 @@ export default function Folder ({
 
   let onSubmit = (event: FormEvent<HTMLFormElement>) => {
     setShowInput(false);
-    onFolderRename(index, newName);
+    onFolderRename(folderIndex, newName);
   }
 
   let onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +36,7 @@ export default function Folder ({
    return (
 
   <li className="folder-wrapper">
-    {!showInput && <h2 className="folder-name">{newName} <button className="folder-rename-button" style={{backgroundImage: `url(${editPencil})`}} onClick={onEditButtonClick}></button></h2>}
+    {!showInput && <h2 className="folder-name">{newName} <button className="folder-rename-button" onClick={onEditButtonClick}>&#9998;</button></h2>}
     {showInput && <form onSubmit={onSubmit} className="folder-rename-form">
       <input type="text" 
              className="folder-rename-input"
@@ -52,7 +55,7 @@ export default function Folder ({
     {images.length === 0 && <h3>No images in this folder. Add some!</h3>}
     <ul className="folder-images">
       {images.map((image, index) => {
-        return <li className="folder-list-item" key={index}><img className="folder-image" src={image} alt="result from the API"/></li>;
+        return <Image key={index} image={image} folderIndex={folderIndex} uploadedImages={uploadedImages} onImageMove={onImageMove} />
       })}
     </ul>
   </li>
